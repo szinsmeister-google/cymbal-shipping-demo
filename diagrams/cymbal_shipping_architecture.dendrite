@@ -1,0 +1,400 @@
+theme: "gcp-pro"
+renderOrder: nodes-first
+direction: right
+spacing: 24
+
+const GcpBlue = "#1a73e8"
+const GcpGreen = "#1e8e3e"
+const GcpPurple = "#7c3aed"
+const GcpAmber = "#b45309"
+const DarkSlate = "#202124"
+const SubText = "#5f6368"
+const CardBorder = "#dadce0"
+const SurfaceWhite = "#ffffff"
+
+Style @ArchRoot {
+  fill: "#ffffff", strokeColor: "#cbd5e1", strokeWidth: 1.5, borderRadius: 16,
+  padding: 24, gap: 24, fontColor: $DarkSlate, fontSize: 21, labelWeight: bold,
+  icon: "GoogleCloud", iconSize: 28
+}
+
+Style @AmberPillar {
+  fill: "#fef9e7", strokeColor: "#f2c94c", strokeWidth: 1.5, borderRadius: 12,
+  padding: 16, gap: 26, fontColor: "#78350f", fontSize: 15, labelWeight: bold
+}
+
+Style @GreenPillar {
+  fill: "#e6f4ea", strokeColor: "#81c995", strokeWidth: 1.5, borderRadius: 12,
+  padding: 16, gap: 38, fontColor: "#137333", fontSize: 15, labelWeight: bold
+}
+
+Style @BluePillar {
+  fill: "#e8f0fe", strokeColor: "#8ab4f8", strokeWidth: 1.5, borderRadius: 12,
+  padding: 16, gap: 46, fontColor: "#174ea6", fontSize: 15, labelWeight: bold
+}
+
+Style @PurplePillar {
+  fill: "#f3e8fd", strokeColor: "#c084fc", strokeWidth: 1.5, borderRadius: 12,
+  padding: 16, gap: 38, fontColor: "#581c87", fontSize: 15, labelWeight: bold
+}
+
+Style @FooterBand {
+  fill: "#f8fafc", strokeColor: "#cbd5e1", strokeWidth: 1.5, borderRadius: 12,
+  padding: 14, gap: 20, fontColor: $DarkSlate, fontSize: 13.5, labelWeight: bold
+}
+
+Style @ExternalSubZone {
+  fill: "#f1f5f9", strokeColor: "#94a3b8", strokeWidth: 1.2, borderRadius: 10,
+  dashed: true, padding: 12, gap: 8, fontColor: "#334155", fontSize: 12.5, labelWeight: bold
+}
+
+Style @AmberSubZone {
+  fill: "#fef0c7", strokeColor: "#e5b84b", strokeWidth: 1.2, borderRadius: 10,
+  padding: 12, gap: 8, fontColor: "#78350f", fontSize: 12.5, labelWeight: bold
+}
+
+Style @GreenSubZone {
+  fill: "#ceead6", strokeColor: "#5bb974", strokeWidth: 1.2, borderRadius: 10,
+  padding: 12, gap: 8, fontColor: "#0d652d", fontSize: 12.5, labelWeight: bold
+}
+
+Style @BlueSubZone {
+  fill: "#d2e3fc", strokeColor: "#669df6", strokeWidth: 1.2, borderRadius: 10,
+  padding: 12, gap: 8, fontColor: "#174ea6", fontSize: 12.5, labelWeight: bold
+}
+
+Style @PurpleSubZone {
+  fill: "#e9d5ff", strokeColor: "#a855f7", strokeWidth: 1.2, borderRadius: 10,
+  padding: 12, gap: 8, fontColor: "#581c87", fontSize: 12.5, labelWeight: bold
+}
+
+Style @ProductCard {
+  width: 274, height: 60,
+  fill: $SurfaceWhite, strokeColor: $CardBorder, strokeWidth: 1.2, borderRadius: 8,
+  fontColor: $DarkSlate, subFontColor: $SubText,
+  fontSize: 13.5, subFontSize: 11, labelWeight: bold,
+  textAlign: "left", textVAlign: "middle",
+  iconPosition: "left", iconSize: 26, padding: 10, shadow: true
+}
+
+Style @HeroCard {
+  base: @ProductCard,
+  strokeColor: $GcpBlue, strokeWidth: 1.8
+}
+
+Style @DetailCard {
+  width: 274, height: 46,
+  fill: "#fafbfc", strokeColor: "#e2e8f0", strokeWidth: 1, borderRadius: 8,
+  fontColor: $DarkSlate, subFontColor: $SubText,
+  fontSize: 12, subFontSize: 10.5, labelWeight: bold,
+  textAlign: "left", textVAlign: "middle",
+  iconPosition: "left", iconSize: 19, padding: 9, shadow: false
+}
+
+Style @ConflictCard {
+  base: @DetailCard,
+  fill: "#fef2f2", strokeColor: "#f6aea9", strokeWidth: 1.2,
+  fontColor: "#991b1b", subFontColor: "#7f1d1d"
+}
+
+Style @FooterPill {
+  width: 360, height: 50,
+  fill: $SurfaceWhite, strokeColor: "#cbd5e1", strokeWidth: 1, borderRadius: 10,
+  fontColor: $DarkSlate, subFontColor: $SubText,
+  fontSize: 12.5, subFontSize: 10.5, labelWeight: bold,
+  textAlign: "left", textVAlign: "middle",
+  iconPosition: "left", iconSize: 22, padding: 10, shadow: true
+}
+
+Zone @CymbalShippingArch {
+  title: "Cymbal Shipping: Agentic Data Cloud Reference Architecture"
+  subtitle: "Borderless Lakehouse & Live State → Unified Knowledge Catalog → Governed Looker Semantic & MCP Layer → Zero-Drift Experiences"
+  style: @ArchRoot
+  layout: matrix
+  cols: 4
+  sizes: ["1fr", "1fr", "1fr", "1fr"]
+  areas: [
+    "layer1 layer2 layer3 layer4",
+    "footer footer footer footer"
+  ]
+  columnGap: 88
+  rowGap: 20
+  align: "stretch"
+
+  // =========================================================================
+  // LAYER 1: Multi-Cloud Storage & Live Operations
+  // =========================================================================
+  Zone @Layer1_DataOps {
+    area: "layer1"
+    title: "1. Multi-Cloud Data & Ops"
+    subtitle: "Borderless Lakehouse + Live State"
+    style: @AmberPillar
+    layout: column
+    align: "stretch"
+    justify: "center"
+    icon: "Databases"
+    iconSize: 20
+
+    Zone @ExternalAWS {
+      title: "External Cloud (Unstructured)"
+      style: @ExternalSubZone
+      layout: column
+      align: "center"
+      [amazon_s3: "Amazon S3" | "IoT Temp (> 8.0°C) & Hub PDFs"] {
+        style: @ProductCard, icon: "Cloud"
+      }
+      [s3_evidence: "Field Evidence" | "Matrix C, Belt 7 Exception Logs"] {
+        style: @DetailCard, icon: "Activity"
+      }
+    }
+
+    Zone @LakehouseBQ {
+      title: "Managed Lakehouse"
+      style: @AmberSubZone
+      layout: column
+      align: "center"
+      [bq_biglake: "BigQuery + BigLake" | "62,707/wk · Customers & Hubs"] {
+        style: @ProductCard, icon: "BigQuery"
+      }
+      [bq_objtable: "BigLake Object Table" | "Zero-Copy S3 exception_evidence"] {
+        style: @DetailCard, icon: "BigLake"
+      }
+    }
+
+    Zone @LiveOpsSpanner {
+      title: "Live Operations"
+      style: @AmberSubZone
+      layout: column
+      align: "center"
+      [cloud_spanner: "Cloud Spanner" | "PackageTracking · Dwell >= 6.0h"] {
+        style: @ProductCard, icon: "Spanner"
+      }
+      [spanner_routing: "HubOperations Routing" | "Live Recovery: MEM → IND"] {
+        style: @DetailCard, icon: "GitMerge"
+      }
+    }
+  }
+
+  // =========================================================================
+  // LAYER 2: Unified Governance & Context (Knowledge Catalog Studio)
+  // =========================================================================
+  Zone @Layer2_Governance {
+    area: "layer2"
+    title: "2. Governance & Context"
+    subtitle: "Knowledge Catalog Studio"
+    style: @GreenPillar
+    layout: column
+    align: "stretch"
+    justify: "center"
+    icon: "Dataplex"
+    iconSize: 20
+
+    Zone @CatalogGlossary {
+      title: "Context Set & Business Glossary"
+      style: @GreenSubZone
+      layout: column
+      align: "center"
+      [knowledge_catalog: "Knowledge Catalog" | "26 Governed Assets · 14 Terms"] {
+        style: @ProductCard, icon: "Dataplex"
+      }
+      [glossary_otd: "Business Glossary Rules" | "OTD 97.5% (Excl. Weather/Customs)"] {
+        style: @DetailCard, icon: "ShieldCheck"
+      }
+      [glossary_sla: "SLA & Revenue Risk" | "Aging >= 6.0h · Cold > 8.0°C"] {
+        style: @DetailCard, icon: "Clock"
+      }
+    }
+
+    Zone @EnrichmentAgent {
+      title: "Code-to-Context Agent (HITL)"
+      style: @GreenSubZone
+      layout: column
+      align: "center"
+      [github_repos: "GitHub Repos" | "ETL · Dataform SQLX · LookML · SOPs"] {
+        style: @ProductCard, icon: "Github"
+      }
+      [enrichment_agent: "Enrichment Agent" | "55 Proposals & Verified SQL"] {
+        style: @ProductCard, icon: "Sparkles"
+      }
+      [hitl_conflict: "HITL Policy Conflict Guard" | "4.0h Legacy Script vs. 6.0h SLA"] {
+        style: @ConflictCard, icon: "ShieldAlert"
+      }
+    }
+  }
+
+  // =========================================================================
+  // LAYER 3: Governed Semantic & Protocol Layer
+  // =========================================================================
+  Zone @Layer3_Semantic {
+    area: "layer3"
+    title: "3. Semantic & Protocol"
+    subtitle: "Single KPI Definition & MCP"
+    style: @BluePillar
+    layout: column
+    align: "stretch"
+    justify: "center"
+    icon: "Looker"
+    iconSize: 20
+
+    Zone @LookerMCP {
+      title: "Open Protocol Bridge"
+      style: @BlueSubZone
+      layout: column
+      align: "center"
+      [looker_mcp: "Looker MCP Connector" | "Open MCP Bridge for AI Agents"] {
+        style: @HeroCard, icon: "ModelContextProtocol"
+      }
+      [certified_looks: "Certified Looks 148 & 149" | "Governed Tools · No SQL Guess"] {
+        style: @DetailCard, icon: "ShieldCheck"
+      }
+    }
+
+    Zone @LookerSemantic {
+      title: "Looker Semantic Layer (LookML)"
+      style: @BlueSubZone
+      layout: column
+      align: "center"
+      [looker_lookml: "cymbal_shipping Model" | "shipments Explore · 6 Views"] {
+        style: @HeroCard, icon: "Looker"
+      }
+      [lookml_federation: "Cross-Cloud Federation" | "Queries BigQuery, Spanner & S3"] {
+        style: @DetailCard, icon: "Layers"
+      }
+      [lookml_kpis: "Governed KPIs (Defined Once)" | "OTD · Rev at Risk · Temp Excurs."] {
+        style: @DetailCard, icon: "BarChart3"
+      }
+    }
+  }
+
+  // =========================================================================
+  // LAYER 4: Business & Agentic Experiences (Zero Drift)
+  // =========================================================================
+  Zone @Layer4_Experiences {
+    area: "layer4"
+    title: "4. Agentic & BI Experiences"
+    subtitle: "Zero Metric Drift"
+    style: @PurplePillar
+    layout: column
+    align: "stretch"
+    justify: "center"
+    icon: "Gemini"
+    iconSize: 20
+
+    Zone @GeminiAgentZone {
+      title: "Conversational Agentic Desk"
+      style: @PurpleSubZone
+      layout: column
+      align: "center"
+      [gemini_agent: "Gemini agent" | "Cymbal Shipping Service Desk"] {
+        style: @ProductCard, strokeColor: $GcpPurple, strokeWidth: 1.8, icon: "Gemini"
+      }
+      [agent_grounding: "Glossary + MCP Execution" | "SLA Breaches & Cold-Chain Risk"] {
+        style: @DetailCard, icon: "MessageSquare"
+      }
+      [agent_proof: "Verified Root Cause" | "$56,994 Exposure · 119 Reports"] {
+        style: @DetailCard, icon: "ShieldCheck"
+      }
+    }
+
+    Zone @LookerDataAppZone {
+      title: "Governed Operational Workspace"
+      style: @PurpleSubZone
+      layout: column
+      align: "center"
+      [looker_app: "Looker Data App" | "Service Performance · M3 Luminous"] {
+        style: @ProductCard, strokeColor: $GcpPurple, strokeWidth: 1.8, icon: "Looker"
+      }
+      [app_search: "Interactive Cross-Filter" | "\"Look it up\" Search & Drilldown"] {
+        style: @DetailCard, icon: "Search"
+      }
+      [app_recovery: "Single-Package Recovery" | "Matches Agent Numbers Exactly"] {
+        style: @DetailCard, icon: "BarChart3"
+      }
+    }
+  }
+
+  // =========================================================================
+  // BOTTOM BAR: Direct Query Execution & Zero-Drift Architectural Guarantees
+  // =========================================================================
+  Zone @ZeroDriftFooter {
+    area: "footer"
+    span: 4
+    title: "End-to-End Zero-Drift Guarantees & Direct Federated Execution"
+    style: @FooterBand
+    layout: row
+    gap: 28
+    align: "center"
+    justify: "center"
+
+    [f1: "Zero-Copy Multi-Cloud" | "BigLake indexes S3 · Spanner live ops"] {
+      style: @FooterPill, icon: "BigQuery"
+    }
+    [f2: "HITL Governance Loop" | "26 assets · 14 terms · 55 proposals"] {
+      style: @FooterPill, icon: "Dataplex"
+    }
+    [f3: "Federated LookML + MCP" | "Direct queries · Looks 148 & 149"] {
+      style: @FooterPill, icon: "ModelContextProtocol"
+    }
+    [f4: "100% Zero Metric Drift" | "Agent & App: $56,994 · 119 reports"] {
+      style: @FooterPill, icon: "ShieldCheck"
+    }
+  }
+}
+
+// =========================================================================
+// PLANAR DIRECTED EDGES (Explicit Anchors · Zero Crossings · Clean Corridors)
+// =========================================================================
+
+// Layer 1 internal zero-copy link
+[ExternalAWS] --> [LakehouseBQ] {
+  label: "Zero-Copy", sourceAnchor: "bottom", targetAnchor: "top",
+  color: $GcpAmber, strokeWidth: 2, dashed: true, curve: "step"
+}
+
+// Layer 1 -> Layer 2 (Cataloging & Lineage)
+[LakehouseBQ] --> [CatalogGlossary] {
+  label: "Metadata", sourceAnchor: "right", targetAnchor: "left",
+  color: $GcpAmber, strokeWidth: 2, curve: "step"
+}
+[LiveOpsSpanner] --> [CatalogGlossary] {
+  label: "Live Schema", sourceAnchor: "right", targetAnchor: "left",
+  color: $GcpAmber, strokeWidth: 2, curve: "step"
+}
+
+// Layer 2 internal HITL governance loop
+[EnrichmentAgent] --> [CatalogGlossary] {
+  label: "HITL Approve", sourceAnchor: "top", targetAnchor: "bottom",
+  color: $GcpGreen, strokeWidth: 2, curve: "step"
+}
+
+// Layer 2 -> Layer 3 (Context & Verified Definitions)
+[CatalogGlossary] --> [LookerMCP] {
+  label: "Glossary", sourceAnchor: "right", targetAnchor: "left",
+  color: $GcpGreen, strokeWidth: 2, curve: "step"
+}
+[EnrichmentAgent] --> [LookerSemantic] {
+  label: "Verified SQL", sourceAnchor: "right", targetAnchor: "left",
+  color: $GcpGreen, strokeWidth: 2, dashed: true, curve: "step"
+}
+
+// Layer 3 internal semantic -> MCP exposure
+[LookerSemantic] --> [LookerMCP] {
+  label: "Expose MCP", sourceAnchor: "top", targetAnchor: "bottom",
+  color: $GcpBlue, strokeWidth: 2, curve: "step"
+}
+
+// Layer 3 -> Layer 4 (Zero-Drift Consumption)
+[LookerMCP] --> [GeminiAgentZone] {
+  label: "MCP Tools", sourceAnchor: "right", targetAnchor: "left",
+  color: $GcpBlue, strokeWidth: 2.2, curve: "step"
+}
+[LookerSemantic] --> [LookerDataAppZone] {
+  label: "Governed KPIs", sourceAnchor: "right", targetAnchor: "left",
+  color: $GcpBlue, strokeWidth: 2.2, curve: "step"
+}
+
+// Layer 4 internal Zero-Drift parity indicator
+[GeminiAgentZone] <--> [LookerDataAppZone] {
+  label: "Zero Drift", sourceAnchor: "bottom", targetAnchor: "top",
+  color: $GcpPurple, strokeWidth: 2, dashed: true, curve: "step"
+}

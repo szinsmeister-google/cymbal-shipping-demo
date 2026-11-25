@@ -1,0 +1,31 @@
+-- =========================================================================
+-- Repository: kc-enrichment-marketing-analytics
+-- File: data_semantics/graph/cymbal_shipping_network_lineage_graph.gql
+-- Purpose: ISO GQL Property Graph definition connecting Customers, Shipments,
+--          Sorting Hubs, Spanner Live Scans, and AWS S3 Field Evidence
+-- =========================================================================
+
+CREATE OR REPLACE PROPERTY GRAPH `YOUR_GCP_PROJECT_ID.cymbal_shipping.cymbal_shipping_network_graph`
+  NODE TABLES (
+    `YOUR_GCP_PROJECT_ID.cymbal_shipping.customers`
+      KEY (customer_id)
+      LABEL Customer PROPERTIES (customer_id, customer_name, account_tier, industry_vertical, account_director),
+    `YOUR_GCP_PROJECT_ID.cymbal_shipping.hubs`
+      KEY (hub_id)
+      LABEL SortingHub PROPERTIES (hub_id, hub_name, city, state, hub_role, recovery_partner_hub_id),
+    `YOUR_GCP_PROJECT_ID.cymbal_shipping.shipments`
+      KEY (tracking_number)
+      LABEL Shipment PROPERTIES (tracking_number, service_type, is_cold_chain, shipping_charge_usd, is_on_time_governed, is_guarantee_refund_eligible)
+  )
+  EDGE TABLES (
+    `YOUR_GCP_PROJECT_ID.cymbal_shipping.shipments` AS ShippedByCustomer
+      KEY (tracking_number)
+      SOURCE KEY (customer_id) REFERENCES Customer (customer_id)
+      DESTINATION KEY (tracking_number) REFERENCES Shipment (tracking_number)
+      LABEL SHIPPED_BY,
+    `YOUR_GCP_PROJECT_ID.cymbal_shipping.live_package_tracking` AS HeldAtHub
+      KEY (tracking_number)
+      SOURCE KEY (tracking_number) REFERENCES Shipment (tracking_number)
+      DESTINATION KEY (current_hub_id) REFERENCES SortingHub (hub_id)
+      LABEL HELD_AT_HUB PROPERTIES (dwell_hours_at_facility, is_aging, current_status, assigned_recovery_hub_id)
+  );

@@ -1,0 +1,75 @@
+config {
+  type: "incremental",
+  database: "YOUR_GCP_PROJECT_ID",
+  schema: "cymbal_shipping",
+  name: "fct_customer_sla_and_cold_chain_risk",
+  description: "Dataform incremental mart combining shipments, customers, Spanner live_package_tracking, and S3 exception_evidence to compute Revenue at Risk and Cold Chain Excursion exposure.",
+  uniqueKey: ["tracking_number"],
+  bigquery: {
+    partitionBy: "ship_date",
+    clusterBy: ["account_tier", "current_hub_id", "service_type"]
+  },
+  assertions: {
+    uniqueKey: ["tracking_number"],
+    nonNull: ["tracking_number", "customer_id", "service_type"],
+    rowConditions: [
+      "shipping_charge_usd >= 0",
+      "dwell_hours_at_facility >= 0"
+    ]
+  },
+  columns: {
+    tracking_number: "12-digit Cymbal Shipping tracking identifier joining shipments, live_package_tracking, and exception_evidence.",
+    account_tier: "Commercial segmentation tier: Strategic (>=$10M annual contract, named Account Director), Enterprise ($1M-$10M), Commercial (<$1M).",
+    cold_chain_risk_band: "Cold chain risk classification combining Spanner dwell time (>=6h aging) and S3 logger temperature (>8.0C excursion).",
+    revenue_at_risk_usd: "Shipping charges eligible for money-back refund under the Service Guarantee (guaranteed service + controllable delay)."
+  }
+}
+
+-- =========================================================================
+-- File: dataform/fct_customer_sla_and_cold_chain_risk.sqlx
+-- Format: Dataform SQLX (.sqlx)
+-- Signals Encoded for Knowledge Catalog Enrichment Agent:
+--   1. Dataform `ref()` lineage across `shipments`, `customers`, `hubs`,
+--      `live_package_tracking` (Spanner), and `exception_evidence` (AWS S3).
+--   2. Cold Chain Risk Formula (`cold_chain_risk_band`):
+--      - 'Critical_Excursion_Aging': `is_cold_chain = TRUE` AND `dwell_hours_at_facility >= 6.0` AND `max_recorded_temp_c > 8.0`
+--      - 'At_Risk_Aging_In_Range': `is_cold_chain = TRUE` AND `dwell_hours_at_facility >= 6.0` AND `max_recorded_temp_c <= 8.0`
+--      - 'Normal_Transit': `dwell_hours_at_facility < 6.0` AND `IFNULL(max_recorded_temp_c, 4.0) <= 8.0`
+-- =========================================================================
+
+SELECT
+  s.tracking_number,
+  s.ship_date,
+  s.reporting_period,
+  c.customer_id,
+  c.customer_name,
+  c.account_tier,
+  c.industry_vertical,
+  c.account_director,
+  s.service_type,
+  s.is_guaranteed_service,
+  s.is_cold_chain,
+  l.current_hub_id,
+  l.dwell_hours_at_facility,
+  (l.dwell_hours_at_facility >= 6.0) AS is_aging_package,
+  e.max_recorded_temp_c,
+  (s.is_cold_chain AND e.max_recorded_temp_c > 8.0) AS has_temp_excursion,
+  e.root_cause_note,
+  CASE
+    WHEN s.is_cold_chain AND l.dwell_hours_at_facility >= 6.0 AND e.max_recorded_temp_c > 8.0
+      THEN 'Critical_Excursion_Aging'
+    WHEN s.is_cold_chain AND l.dwell_hours_at_facility >= 6.0
+      THEN 'At_Risk_Aging_In_Range'
+    ELSE 'Normal_Transit'
+  END AS cold_chain_risk_band,
+  CASE
+    WHEN s.is_guarantee_refund_eligible THEN s.shipping_charge_usd
+    ELSE 0.0
+  END AS revenue_at_risk_usd
+FROM ${ref("shipments")} AS s
+JOIN ${ref("customers")} AS c
+  ON s.customer_id = c.customer_id
+LEFT JOIN ${ref("live_package_tracking")} AS l
+  ON s.tracking_number = l.tracking_number
+LEFT JOIN ${ref("exception_evidence")} AS e
+  ON s.tracking_number = e.tracking_number
