@@ -56,10 +56,10 @@
         <mxCell id="cell_18" value="&lt;b&gt;[Activity] Field Evidence&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;Matrix C, Belt 7 Exception Logs&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fafbfc;strokeColor=#e2e8f0;strokeWidth=1;fontColor=#202124;fontSize=13;shadow=0;" vertex="1" parent="cell_4">
           <mxGeometry x="18" y="120" width="274" height="49.25" as="geometry" />
         </mxCell>
-        <mxCell id="cell_19" value="&lt;b&gt;[BigQuery] BigQuery + BigLake&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;62,707/wk · Customers &amp; Hubs&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#dadce0;strokeWidth=1.2;fontColor=#202124;fontSize=13;shadow=1;" vertex="1" parent="cell_5">
+        <mxCell id="cell_19" value="&lt;b&gt;[BigQuery] BigQuery Lakehouse&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;62,707/wk · Customers &amp; Hubs&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#dadce0;strokeWidth=1.2;fontColor=#202124;fontSize=13;shadow=1;" vertex="1" parent="cell_5">
           <mxGeometry x="18" y="44" width="274" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="cell_20" value="&lt;b&gt;[BigLake] BigLake Object Table&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;Zero-Copy S3 exception_evidence&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fafbfc;strokeColor=#e2e8f0;strokeWidth=1;fontColor=#202124;fontSize=13;shadow=0;" vertex="1" parent="cell_5">
+        <mxCell id="cell_20" value="&lt;b&gt;[Lakehouse] Lakehouse Object Table&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;Zero-Copy S3 exception_evidence&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fafbfc;strokeColor=#e2e8f0;strokeWidth=1;fontColor=#202124;fontSize=13;shadow=0;" vertex="1" parent="cell_5">
           <mxGeometry x="18" y="120" width="274" height="49.25" as="geometry" />
         </mxCell>
         <mxCell id="cell_21" value="&lt;b&gt;[Spanner] Cloud Spanner&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;PackageTracking · Dwell &gt;= 6.0h&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#dadce0;strokeWidth=1.2;fontColor=#202124;fontSize=13;shadow=1;" vertex="1" parent="cell_6">
@@ -122,7 +122,7 @@
         <mxCell id="cell_39" value="&lt;b&gt;[BarChart3] Single-Package Recovery&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;Matches Agent Numbers Exactly&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fafbfc;strokeColor=#e2e8f0;strokeWidth=1;fontColor=#202124;fontSize=13;shadow=0;" vertex="1" parent="cell_15">
           <mxGeometry x="18" y="185.25" width="274" height="49.25" as="geometry" />
         </mxCell>
-        <mxCell id="cell_40" value="&lt;b&gt;[BigQuery] Zero-Copy Multi-Cloud&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;BigLake indexes S3 · Spanner live ops&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;strokeWidth=1;fontColor=#202124;fontSize=13;shadow=1;" vertex="1" parent="cell_16">
+        <mxCell id="cell_40" value="&lt;b&gt;[BigQuery] Zero-Copy Multi-Cloud&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;Lakehouse indexes S3 · Spanner live ops&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;strokeWidth=1;fontColor=#202124;fontSize=13;shadow=1;" vertex="1" parent="cell_16">
           <mxGeometry x="54" y="40" width="360" height="51.9" as="geometry" />
         </mxCell>
         <mxCell id="cell_41" value="&lt;b&gt;[Dataplex] HITL Governance Loop&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#64748B&#39; size=&#39;1&#39;&gt;26 assets · 14 terms · 55 proposals&lt;/font&gt;" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;strokeWidth=1;fontColor=#202124;fontSize=13;shadow=1;" vertex="1" parent="cell_16">

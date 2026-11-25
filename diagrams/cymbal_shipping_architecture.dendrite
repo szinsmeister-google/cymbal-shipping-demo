@@ -153,10 +153,10 @@ Zone @CymbalShippingArch {
       style: @AmberSubZone
       layout: column
       align: "center"
-      [bq_biglake: "BigQuery + BigLake" | "62,707/wk · Customers & Hubs"] {
+      [bq_biglake: "BigQuery Lakehouse" | "62,707/wk · Customers & Hubs"] {
         style: @ProductCard, icon: "BigQuery"
       }
-      [bq_objtable: "BigLake Object Table" | "Zero-Copy S3 exception_evidence"] {
+      [bq_objtable: "Lakehouse Object Table" | "Zero-Copy S3 exception_evidence"] {
         style: @DetailCard, icon: "BigLake"
       }
     }
@@ -326,7 +326,7 @@ Zone @CymbalShippingArch {
     align: "center"
     justify: "center"
 
-    [f1: "Zero-Copy Multi-Cloud" | "BigLake indexes S3 · Spanner live ops"] {
+    [f1: "Zero-Copy Multi-Cloud" | "Lakehouse indexes S3 · Spanner live ops"] {
       style: @FooterPill, icon: "BigQuery"
     }
     [f2: "HITL Governance Loop" | "26 assets · 14 terms · 55 proposals"] {

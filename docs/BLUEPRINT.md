@@ -14,7 +14,7 @@ That single operational crisis forces every layer of the data stack to answer th
 
 | The Old Way (Legacy Compromise) | The New Way (Agentic Data Cloud) |
 | :--- | :--- |
-| Fragmented database zoo separating operational "now" from analytical "then" | Unified multi-cloud federation across Amazon S3, BigQuery BigLake, and Cloud Spanner |
+| Fragmented database zoo separating operational "now" from analytical "then" | Unified multi-cloud federation across Amazon S3, BigQuery Lakehouse, and Cloud Spanner |
 | Business logic trapped in tribal wikis and conflicting GitHub scripts | Knowledge Catalog Enrichment Agent crawls code and flags conflicts for human review |
 | Unconstrained text-to-SQL agents inventing their own metric math | Gemini agent reads governed glossary terms and executes LookML measures via Looker MCP |
 | Chatbots and BI dashboards contradicting each other in executive meetings | One semantic contract powering both conversational AI and the Looker Data App with zero drift |
@@ -25,9 +25,9 @@ Every component in this demo maps to four decoupled layers: multi-cloud data and
 
 ![Cymbal Shipping Agentic Data Cloud reference architecture](../diagrams/cymbal_shipping_architecture.png)
 
-*Four-layer Agentic Data Cloud blueprint connecting Amazon S3 field evidence, BigQuery BigLake, Cloud Spanner live tracking, Knowledge Catalog governance, Looker LookML over MCP, the Gemini agent, and the Looker Data App.*
+*Four-layer Agentic Data Cloud blueprint connecting Amazon S3 field evidence, BigQuery Lakehouse, Cloud Spanner live tracking, Knowledge Catalog governance, Looker LookML over MCP, the Gemini agent, and the Looker Data App.*
 
-- **Layer 1 (Multi-cloud data and live operations):** Amazon S3 stores unstructured cold-chain temperature logs and hub exception notes. BigQuery BigLake indexes those files with zero data copies alongside 883,919 historical shipments, while Cloud Spanner tracks 55,922 live undelivered packages and hub recovery lanes.
+- **Layer 1 (Multi-cloud data and live operations):** Amazon S3 stores unstructured cold-chain temperature logs and hub exception notes. BigQuery Lakehouse indexes those files with zero data copies alongside 883,919 historical shipments, while Cloud Spanner tracks 55,922 live undelivered packages and hub recovery lanes.
 - **Layer 2 (Unified governance and context):** Knowledge Catalog binds 26 cross-cloud assets and 14 business glossary terms into one Context Set. Its Enrichment Agent crawls engineering GitHub repos, extracts 55 governed proposals, and catches a hidden four-hour legacy script conflict in Human-in-the-Loop review.
 - **Layer 3 (Governed semantics and open protocol):** A single LookML model (cymbal_shipping) defines all 22 operational and financial KPIs once across BigQuery, Spanner, and S3. The Looker MCP connector exposes those governed measures and certified Looks directly to AI agents.
 - **Layer 4 (Zero-drift experiences):** Both the Gemini agent (Cymbal Shipping Service Desk) and the Looker Data App (Service Performance) run against the exact same semantic layer. Ask either surface about Strategic healthcare exposure in Memphis, and both return Meridian Pharma at $27,888 down to the exact dollar.
@@ -40,7 +40,7 @@ Three realistic incidents sit inside the data to test whether the semantic layer
 
 ### BigQuery analytical lakehouse (cymbal_shipping)
 
-Six native BigQuery tables and one BigLake external object table form the analytical core in region us-east1. Every table is seeded idempotently by the scripts in folder 01_data of the GitHub repository.
+Six native BigQuery tables and one Lakehouse external object table form the analytical core in region us-east1. Every table is seeded idempotently by the scripts in folder 01_data of the GitHub repository.
 
 | Table or object | Partitioning and clustering | Verified rows | Role in the demo |
 | :--- | :--- | ---: | :--- |
@@ -50,7 +50,7 @@ Six native BigQuery tables and one BigLake external object table form the analyt
 | shipments | Partition: ship_date; Cluster: routing_hub_code, customer_id, service_code | 883,919 | Package-level system of analysis: pickup, commit deadline, delay category, and billed revenue |
 | live_package_tracking | Cluster: current_hub_code, package_status | 55,922 | Analytical replica of active undelivered packages, hub dwell hours, aging flag, and recovery plan |
 | exception_evidence | None (14 columns) | 863 | Extracted structured facts and full text from unstructured field reports, including 65 temp excursions |
-| field_evidence_objects | BigLake External Object Table | 863 files (614 KB) | Zero-copy object table indexing the lakehouse landing copy of Amazon S3 field evidence documents |
+| field_evidence_objects | Lakehouse External Object Table | 863 files (614 KB) | Zero-copy object table indexing the lakehouse landing copy of Amazon S3 field evidence documents |
 
 The shipments table carries 23 columns including tracking_number (12-digit unique key), is_cold_chain (Healthcare 2–8°C shipments on PO, SO, or IP), exception_reason, exception_category (Controllable vs. Uncontrollable), service_outcome, and is_guarantee_refund_eligible. Because those flags are computed deterministically, every downstream chart and agent query resolves cleanly without fragile client-side SQL.
 
@@ -82,7 +82,7 @@ CREATE PROPERTY GRAPH ShippingNetwork
 
 ### Borderless lakehouse unstructured field evidence (Amazon S3)
 
-Field evidence—IoT temperature logger files, hub delay notices, damage reports, and customs holds—originates in Amazon S3 under s3://cymbal-shipping-field-evidence/ across three prefixes: hub-delay-notices, cold-chain-temperature-logs, and driver-and-customs-reports. BigQuery BigLake indexes all 863 files (614,678 bytes) through the external object table field_evidence_objects, while exception_evidence exposes extracted root causes (such as Sort line outage Matrix C, Belt 7) and peak sensor readings (max_temperature_c and minutes_out_of_range) for SQL and LookML joins.
+Field evidence—IoT temperature logger files, hub delay notices, damage reports, and customs holds—originates in Amazon S3 under s3://cymbal-shipping-field-evidence/ across three prefixes: hub-delay-notices, cold-chain-temperature-logs, and driver-and-customs-reports. BigQuery Lakehouse indexes all 863 files (614,678 bytes) through the external object table field_evidence_objects, while exception_evidence exposes extracted root causes (such as Sort line outage Matrix C, Belt 7) and peak sensor readings (max_temperature_c and minutes_out_of_range) for SQL and LookML joins.
 
 ## Knowledge Catalog setup and code-to-context enrichment
 
@@ -161,7 +161,7 @@ git clone https://github.com/szinsmeister-google/cymbal-shipping-demo
 cd cymbal-shipping-demo
 cp .env.example .env && source .env
 
-# 1. Seed BigQuery, Spanner Property Graph, and BigLake S3 objects
+# 1. Seed BigQuery, Spanner Property Graph, and Lakehouse S3 objects
 python3 01_data/01_seed_bigquery.py
 python3 01_data/02_tracking_and_evidence.py
 python3 01_data/03_spanner_and_lake.py
